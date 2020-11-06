@@ -1,0 +1,35 @@
+{
+	"name": "issue-tracker",
+	"version": "0.0.1",
+	"description": "post, put, update and delete issues",
+	"main": "server.js",
+	"scripts": {
+		"start": "node server.js"
+	},
+	"dependencies": {
+		"express": "^4.17.1",
+		"mongodb": "^3.5.9",
+		"mongoose": "^5.9.27",
+		"cors": "^2.8.5",
+		"body-parser": "^1.19.0",
+		"chai": "^3.5.0",
+		"chai-http": "^3.0.0",
+		"mocha": "^3.2.0",
+		"zombie": "^5.0.5",
+		"helmet": "^3.1.0"
+	},
+	"engines": {
+		"node": "12.16.1"
+	},
+	"repository": {
+		"type": "git",
+		"url": ""
+	},
+	"keywords": [
+		"node",
+		"express",
+		"mongodb",
+		"chai"
+	],
+	"license": "MIT"
+}
