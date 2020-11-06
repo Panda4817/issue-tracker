@@ -3,11 +3,11 @@
 * {
   margin: 0px;
   padding: 0px;
-  font-family: 'Roboto', sans-serif;
 }
 
 body {
   padding: 10px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .issue {
