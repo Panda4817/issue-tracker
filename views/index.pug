@@ -1,0 +1,74 @@
+extends layout.pug
+
+block content
+  header.row
+    h1.col Issue Tracker - Dashboard
+  
+  div.row
+    div.col.text-center
+      h3 Projects: 
+        span #{num}
+  div.row.justify-content-around
+    each val, key in projects
+      p
+        span= ' ' + key + ' '
+        span.lead issues:
+        span= ' ' + val + ' '
+  
+  div#userstories.row(style='margin-left: 5%; margin-top: 5%')
+    div.col
+      h3 Example get usage:
+      code /api/issues/{project}
+      br
+      code /api/issues/{project}?open=true&amp;assigned_to=Joe
+      br
+      h3 Example return:
+      code [{"_id":"5871dda29faedc3491ff93bb","issue_title":"Fix error in posting data","issue_text":"When we post data it has an error.","created_on":"2017-01-08T06:35:14.240Z","updated_on":"2017-01-08T06:35:14.240Z","created_by":"Joe","assigned_to":"Joe","open":true,"status_text":"In QA"},...]
+      br
+      br
+      h2 
+        a(href='/apitest/') EXAMPLE:
+         i /apitest/
+         project issues
+        hr
+	
+  div.row
+    div(id='testui' style='margin-left: 5%').col
+      h3 Submit issue 
+      form(id="testForm", onsubmit='newIssue()')
+        input(type="text" class="form-control project-post" name="project_name" placeholder="*Project Title" required)
+        input(type="text" class="form-control" name="issue_title" placeholder="*Issue Title" required)
+        textarea(type="text" class="form-control" name="issue_text" placeholder="*Text" required)
+        input(type="text" class="form-control" name="created_by" placeholder="*Created by" required)
+        input(type="text" class="form-control" name="assigned_to" placeholder="(opt)Assigned to")
+        input(type="text" class="form-control" name="status_text" placeholder="(opt)Status text")
+        button(type="submit" class="btn btn-primary btn-block") Submit Issue 
+      br
+      h3 Update issue
+      form(id="testForm2", onsubmit='updateIssue()')
+        input(type="text" class="form-control" name="_id" placeholder="*_id" required)
+        input(type="text" class="form-control project-put" name="project_name" placeholder="*Project Title" required)
+        input(type="text" class="form-control" name="issue_title" placeholder="(opt)Issue Title")
+        textarea(type="text" class="form-control" name="issue_text" placeholder="(opt)Text")
+        input(type="text" class="form-control" name="created_by" placeholder="(opt)Created by")
+        input(type="text" class="form-control" name="assigned_to" placeholder="(opt)Assigned to")
+        input(type="text" class="form-control" name="status_text" placeholder="(opt)Status text")
+        div(class="form-check")
+          input(type="checkbox" class="form-check-input" name="open" value=false)
+          label(class="form-check-label" for="open") Check to close issue 
+        button(type="submit" class="btn btn-success btn-block") Update Issue 
+      br
+      h3 Delete issue
+      form(id="testForm3", onsubmit='deleteIssue()')
+        input(type="text" class="form-control" name="_id" placeholder="_id" required)
+        input(type="text" class="form-control project-del" name="project_name" placeholder="*Project Title" required)
+        button(type="submit" class="btn btn-danger btn-block") Delete Issue
+      hr
+      
+      code(id='jsonResult')
+      
+
+block append scripts
+  script(src='../public/index.js')
+  
+   

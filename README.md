@@ -1,6 +1,6 @@
 **FreeCodeCamp**- Quality Assurance project 2
 ------
-[![Run on Repl.it](https://repl.it/badge/github/freeCodeCamp/boilerplate-project-issuetracker)](https://repl.it/github/freeCodeCamp/boilerplate-project-issuetracker)
+[![Run on Repl.it](https://repl.it/badge/github/panda4817/issue-tracker)](https://repl.it/@Panda4817/issue-tracker)
 ## Issue Tracker Project
 
 - All the logic is in `routes/api.js`.
