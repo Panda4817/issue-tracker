@@ -1,5 +1,6 @@
 $(document).ready(function () {
-  var currentProject = window.location.pathname.replace(/\//g, "");
+  var currentProject = window.location.pathname.replace(/[\/]/g, "");
+  currentProject = currentProject.replace(/%20/g, " ");
   var url = "/api/issues/"+currentProject + window.location.search;
   $('#projectTitle').text('All issues for: '+currentProject)
   $('.project-post').val(currentProject);
