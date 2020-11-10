@@ -4,19 +4,20 @@ block content
     header.col
       h1#projectTitle
   div.row
-    div#submitNewIssue.col-12
+    div.col-12
       h3 Submit a new issue:
       form(id="newIssue" method="post" action="/api/")
-      input(type="text" class="form-control" name="issue_title" placeholder="*Title" required)
-      textarea(type="text" class="form-control" name="issue_text" placeholder="*Text" required)
-      input(type="text" class="form-control" name="created_by" placeholder="*Created by" required)
-      input(type="text" class="form-control" name="assigned_to" placeholder="(opt)Assigned to")
-      input(type="text" class="form-control" name="status_text" placeholder="(opt)Status text")
-      button(type="submit" class="btn btn-primary btn-block") Submit Issue
+        input(type="text" class="form-control project-post" name="project_name" placeholder="*Project Title" required)
+        input(type="text" class="form-control" name="issue_title" placeholder="*Title" required)
+        textarea(type="text" class="form-control" name="issue_text" placeholder="*Text" required)
+        input(type="text" class="form-control" name="created_by" placeholder="*Created by" required)
+        input(type="text" class="form-control" name="assigned_to" placeholder="(opt)Assigned to")
+        input(type="text" class="form-control" name="status_text" placeholder="(opt)Status text")
+        button(type="submit" class="btn btn-primary btn-block") Submit Issue
       hr
 
-    div#issueDisplay.col
-    hr
+  div.row#issueDisplay.justify-content-around
+  hr
 
 block append scripts
   script(src='../public/issue.js')

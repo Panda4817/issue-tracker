@@ -6,10 +6,7 @@ body {
 }
 
 .issue {
-  margin: 20px;
-  padding: 5px;
-  width: 60%;
-  border: 2px solid black;
+  border-color: black;
 }
 
 .closed {
@@ -17,7 +14,7 @@ body {
 }
 
 .id {
-  font-size: 10.5px;
+  font-size: 12px;
 }
 
 h1 {

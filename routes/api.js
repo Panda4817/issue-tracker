@@ -50,7 +50,19 @@ module.exports = function (app, db) {
   
     .get(function (req, res){
       const project = req.params.project;
-      db.find({project_title: project}).toArray(function (err, result) {
+      const obs = req.query;
+      console.log(obs);
+      Object.keys(obs).forEach(key => {
+        if (key == 'open') {
+          if (obs[key] == 'false'){
+            obs[key] = false;
+          } else {
+            obs[key] = true;
+          }
+        }
+      })
+      obs['project_title'] = project;
+      db.find(obs).sort( { updated_on: -1 } ).toArray(function (err, result) {
         if (err) throw err
         res.send(result);
       })
@@ -59,7 +71,10 @@ module.exports = function (app, db) {
     
     .post(function (req, res){
       const project = req.params.project;
-      db.insertOne({
+      if (isEmpty(req.body.project_name) || isEmpty(req.body.issue_title) || isEmpty(req.body.issue_text)) {
+        res.json({'error': 'required fields NOT filled in'})
+      } else {
+        db.insertOne({
         project_title: project,
         issue_title: req.body.issue_title,
         issue_text: req.body.issue_text,
@@ -70,9 +85,13 @@ module.exports = function (app, db) {
         status_text: req.body.status_text || '',
         open: true
       }, (err, doc) => {
-        if (err) throw err
-        res.send(doc.value)
+        if (err) {throw err} else {
+          res.json(doc.ops[0])
+        }
+        
       })
+      }
+      
       
     })
 
@@ -80,36 +99,53 @@ module.exports = function (app, db) {
     .put(function (req, res){
       const project = req.params.project;
       const updatedFields = {};
+      console.log(req.body)
       Object.keys(req.body).forEach(key => {
-        if (!isEmpty(req.body[key]) && key != 'project_title' && key != '_id') {
+        if (key == 'open') {
+          if (req.body[key] == 'false'){
+            req.body[key] = false;
+          } else {
+            req.body[key] = true;
+          }
+        }
+        if (!isEmpty(req.body[key]) && key != 'project_name' && key != '_id') {
           updatedFields[key] = req.body[key];
         }
       });
-      if (!updatedFields) {
-        res.send({'error': 'no updated field sent'})
+      if (Object.keys(updatedFields).length == 0) {
+        res.json({'error': 'no updated field sent'})
+      } else {
+        updatedFields['updated_on'] = new Date();
+        console.log(updatedFields)
+        db.findOneAndUpdate({_id: new ObjectId(req.body._id)}, {
+          $set : updatedFields
+        }, (err, doc) => {
+          if(err) {
+            res.json({'failed': 'could not update ' + req.body._id})
+          } else {
+            res.json({'success': 'sucessfully updated '+req.body._id});
+          }
+          
+        })
       }
-      updatedFields['updated_on'] = new Date();
-      db.findOneAndUpdate({_id: new ObjectID(req.body._id)}, {
-        $set : updatedFields
-      }, (err, doc) => {
-        if(err) {
-          res.send({'failed': 'could not update ' + req.body._id})
-        }
-        res.send({'success': 'sucessfully updated '+req.body._id});
-      })
+      
     })
     
     .delete(function (req, res){
       const project = req.params.project;
       if (!req.body._id) {
-        res.send({'error': 'id error'})
-      }
-      db.findOneAndDelete({_id: new ObjectID(req.body._id)}, function(err, doc) {
+        res.json({'error': 'id error'})
+      } else {
+        db.findOneAndDelete({_id: new ObjectId(req.body._id)}, function(err, doc) {
         if(err) {
-          res.send({'failed': 'could not delete ' + req.body._id})
+          res.json({'failed': 'could not delete ' + req.body._id})
+        } else {
+          res.json({'success': 'deleted '+req.body._id});
         }
-        res.send({'success': 'deleted '+req.body._id});
+        
       })
+      }
+      
     });
     
 };

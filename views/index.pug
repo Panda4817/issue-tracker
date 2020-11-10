@@ -2,7 +2,7 @@ extends layout.pug
 
 block content
   header.row
-    h1.col Issue Tracker - Dashboard
+    h1.col Issue Tracker Dashboard
   
   div.row
     div.col.text-center
@@ -14,28 +14,11 @@ block content
         span= ' ' + key + ' '
         span.lead issues:
         span= ' ' + val + ' '
-  
-  div#userstories.row(style='margin-left: 5%; margin-top: 5%')
-    div.col
-      h3 Example get usage:
-      code /api/issues/{project}
-      br
-      code /api/issues/{project}?open=true&amp;assigned_to=Joe
-      br
-      h3 Example return:
-      code [{"_id":"5871dda29faedc3491ff93bb","issue_title":"Fix error in posting data","issue_text":"When we post data it has an error.","created_on":"2017-01-08T06:35:14.240Z","updated_on":"2017-01-08T06:35:14.240Z","created_by":"Joe","assigned_to":"Joe","open":true,"status_text":"In QA"},...]
-      br
-      br
-      h2 
-        a(href='/apitest/') EXAMPLE:
-         i /apitest/
-         project issues
-        hr
 	
   div.row
     div(id='testui' style='margin-left: 5%').col
-      h3 Submit issue 
-      form(id="testForm", onsubmit='newIssue()')
+      h3 Submit a issue 
+      form(id="testForm")
         input(type="text" class="form-control project-post" name="project_name" placeholder="*Project Title" required)
         input(type="text" class="form-control" name="issue_title" placeholder="*Issue Title" required)
         textarea(type="text" class="form-control" name="issue_text" placeholder="*Text" required)
@@ -44,8 +27,8 @@ block content
         input(type="text" class="form-control" name="status_text" placeholder="(opt)Status text")
         button(type="submit" class="btn btn-primary btn-block") Submit Issue 
       br
-      h3 Update issue
-      form(id="testForm2", onsubmit='updateIssue()')
+      h3 Update a issue
+      form(id="testForm2")
         input(type="text" class="form-control" name="_id" placeholder="*_id" required)
         input(type="text" class="form-control project-put" name="project_name" placeholder="*Project Title" required)
         input(type="text" class="form-control" name="issue_title" placeholder="(opt)Issue Title")
@@ -58,8 +41,8 @@ block content
           label(class="form-check-label" for="open") Check to close issue 
         button(type="submit" class="btn btn-success btn-block") Update Issue 
       br
-      h3 Delete issue
-      form(id="testForm3", onsubmit='deleteIssue()')
+      h3 Delete a issue
+      form(id="testForm3")
         input(type="text" class="form-control" name="_id" placeholder="_id" required)
         input(type="text" class="form-control project-del" name="project_name" placeholder="*Project Title" required)
         button(type="submit" class="btn btn-danger btn-block") Delete Issue
