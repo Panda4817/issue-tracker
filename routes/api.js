@@ -102,7 +102,7 @@ module.exports = function (app, db) {
       console.log(req.body)
       Object.keys(req.body).forEach(key => {
         if (key == 'open') {
-          if (req.body[key] == 'false'){
+          if (req.body[key] == 'false' || req.body[key] == 'on'){
             req.body[key] = false;
           } else {
             req.body[key] = true;
