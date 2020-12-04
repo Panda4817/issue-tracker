@@ -20,7 +20,7 @@ $(document).ready(function () {
         var openstatus;
         (ele.open) ? openstatus = 'open' : openstatus = 'closed';
         var single = [
-          '<div class="issue '+openstatus+' col-5 card">',
+          '<div class="issue '+openstatus+' col-md-5 m-1 card">',
           '<p class="id">id: '+ele._id+'</p>',
           '<h3>'+ele.issue_title+' -  ('+openstatus+')</h3>',
           '<p>'+ele.issue_text+'</p>',

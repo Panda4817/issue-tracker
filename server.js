@@ -36,9 +36,10 @@ myDB(async client => {
 
 
 }).catch(e => {
-  app.route('/').get((req, res) => {
-    res.render('index.pug');
-  });
+  console.log(e)
+  //app.route('/').get((req, res) => {
+    //res.render('index.pug');
+  //});
 });
 
 
